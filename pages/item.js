@@ -1,18 +1,18 @@
-import Story from '../components/Story.js'
-import view from '../utils/view.js'
-import baseUrl from '../utils.baseUrl.js'
+import Story from '../components/Story.js';
+import view from '../utils/view.js';
+import baseUrl from '../utils.baseUrl.js';
 
 export default async function Item() {
     let story = null;
     let hasComments = false;
-    let hasError = false
+    let hasError = false;
 
     try {
         story = await getStory();
         hasComments = story.comments.length > 0;
     } catch(error) {
-        hasError = true
-        console.log(error)
+        hasError = true;
+        console.log(error);
     }
 
     if (hasError) {
@@ -31,7 +31,7 @@ export default async function Item() {
 async function getStory() {
     const storyId = window.location.hash.split('?id=')[1];
 //    console.log(storyId);
-    const response = await fetch(`${baseUrl}/item/${storyId}`)
+    const response = await fetch(`${baseUrl}/item/${storyId}`);
     const story = await response.json();
     return story;
 }
