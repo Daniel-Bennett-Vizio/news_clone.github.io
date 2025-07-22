@@ -1,18 +1,37 @@
 import Story from '../components/Story.js'
 import view from '../utils/view.js'
+import baseUrl from '../utils.baseUrl.js'
 
 export default async function Item() {
-    const story = await getStory();
+    let story = null;
+    let hasComments = false;
+    let hasError = false
+
+    try {
+        story = await getStory();
+        hasComments = story.comments.length > 0;
+    } catch(error) {
+        hasError = true
+        console.log(error)
+    }
+
+    if (hasError) {
+        view.innerHTML = `<div class="error"> Error fetching story</div>`;
+    }
+
     view.innerHTML = `
     <div>
     ${Story(story)}
-    </div>`
+    </div>
+    <hr/>
+    ${hasComments ? story.comments.map(comment => JSON.stringify(comment)).join('') : 'No comments'}
+    `
 }
 
 async function getStory() {
     const storyId = window.location.hash.split('?id=')[1];
 //    console.log(storyId);
-  const response = await fetch(`https://node-hnapi.herokuapp.com${storyId}`)
-  const story = await response.json();
-  return story;
+    const response = await fetch(`${baseUrl}/item/${storyId}`)
+    const story = await response.json();
+    return story;
 }

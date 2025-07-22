@@ -1,5 +1,6 @@
 import Story from '../components/Story.js'; 
 import view from '../utils/view.js';
+import baseUrl from '../utils.baseUrl.js'
 
 export default async function Stories(path) {
     const stories = await getStories(path)
@@ -12,20 +13,13 @@ export default async function Stories(path) {
 
 async function getStories(path) {
   const isHomeRoute = path === '/';
-  const isNewRoute = path === '/new';
-//  const isAskRoute = path === '/ask';
-//  const isShowRoute = path === '/show';
+  const isNewRoute = path === '/new'; 
   if (isHomeRoute) {
     path = '/news';
   } else if (isNewRoute) {
     path = '/newest'
   } 
-  // else if (isAskRoute) {
-  //   path = '/ask'
-  // } else if (isShowRoute) {
-  //   path = '/show'
-  // }
-  const response = await fetch(`https://node-hnapi.herokuapp.com${path}`)
+  const response = await fetch(`${baseUrl}${path}`)
   const stories = await response.json();
   return stories;
 }
