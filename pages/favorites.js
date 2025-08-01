@@ -1,7 +1,7 @@
 import view from '../utils.view.js';
-import store from '.store.js';
-import Story from '../components/Story.js';
 import checkFavorite from '../utils/checkFavorite.js';
+import store from '../store.js'
+import Story from '../components/Story.js';
 
 export default function Favorites() {
     const { favorites } = store.getState();
@@ -18,7 +18,7 @@ export default function Favorites() {
         favoriteButton.addEventListener('click', function() {
             const story = JSON.parse(this.dataset.story);
             const isFavorited = checkFavorite(favorites, story);
-            store.dispatch({ type: isFavorited ? "REMOVE_FAVORITE" : "ADD_FAVORITE", payload: { favorite: story} })
+            store.dispatch({ type: isFavorited ? "REMOVE_FAVORITE" : "ADD_FAVORITE", payload: { favorite: story } })
             Favorites();
         });
     });
