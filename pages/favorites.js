@@ -5,7 +5,7 @@ import checkFavorite from '../utils/checkFavorite.js';
 
 export default function Favorites() {
     const { favorites } = store.getState();
-    const hasFavorites = favorites.lenght > 0;
+    const hasFavorites = favorites.length > 0;
 
     view.innerHTML = `<div>
         ${hasFavorites ? favorites.map(story => Story({

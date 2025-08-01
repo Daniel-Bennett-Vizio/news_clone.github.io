@@ -14,7 +14,7 @@ function setActiveLink() {
     } else {
       link.classList.remove('active')
     }
-  })
+  });
 }
 
 class App {
